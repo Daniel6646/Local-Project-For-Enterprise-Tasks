@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ultimate Debug Practice</title>
+</head>
+<body>
+
+<h2>Ultimate Debug Playground</h2>
+
+<input type="text" id="num1" placeholder="Enter first number">
+<input type="text" id="num2" placeholder="Enter second number">
+<br><br>
+
+<button onclick="addNumbers()">Add</button>
+<button onclick="multiplyNumbers()">Multiply</button>
+<button onclick="divideNumbers()">Divide</button>
+<button onclick="modulusNumbers()">Modulus</button>
+
+<br><br>
+
+<button onclick="fakeApiCall()">Fake API</button>
+<button onclick="asyncApi()">Async API</button>
+
+<br><br>
+
+<button onclick="calculateDateDiff()">Date Diff</button>
+<button onclick="formatDate()">Format Date</button>
+
+<br><br>
+
+<button onclick="stringReverse()">Reverse</button>
+<button onclick="palindromeCheck()">Palindrome</button>
+
+<br><br>
+
+<button onclick="arraySum()">Array Sum</button>
+<button onclick="findMax()">Find Max</button>
+
+<br><br>
+
+<button onclick="objectBug()">Object Bug</button>
+<button onclick="scopeBug()">Scope Bug</button>
+
+<br><br>
+<h3> Fetch api debug examples </h3> 
+<br><br>
+<button onclick="getUsers()">Fake api getAllUsers</button><br><br>
+<button onclick="getUserById()">Fake api getUsers by id</button><br><br>
+<button onclick="getPostsByUser()">Fake api getPostUsers</button><br><br>
+<button onclick="createPost()">Fake api create Post For Users</button><br><br>
+<button onclick="updatePost()">Fake api  updatePost()</button> <br><br>
+<button onclick="patchPost()">Fake api  patchPost()</button> <br><br>
+<button onclick="deletePost()">Fake api  deletePost()</button> <br><br>
+<button onclick="getPaginatedPosts()">Fake api  getPaginatedPosts()</button> <br><br>
+<button onclick="getInvalidEndpoint()">Fake api  getInvalidEndpoint()</button> <br><br>
+<button onclick="chainedCalls()">Fake api chainedCalls()</button> <br><br>
+<button onclick="getAllPostsUsingFetch()">Fake api getAllPostsUsingFetch()</button> <br><br>
+
+
+<br><br>
+<h3> Ajax fake api call debug examples </h3> 
+<br><br>
+
+<button onclick="getPostsAjax()">Fake api getPosts()</button> <br><br>
+<button onclick="getPostByIdAjax()">Fake api getPostById()</button> <br><br>
+<button onclick="getPostsByUserAjax()">Fake api getPostsByUser()</button> <br><br>
+<button onclick="getPaginatedPostsAjax()">Fake api getPaginatedPosts()</button> <br><br>
+<button onclick="createPostAjax()">Fake api createPost()</button> <br><br>
+<button onclick="updatePostAjax()">Fake api updatePost()</button> <br><br>
+<button onclick="patchPostAjax()">Fake api patchPost()</button> <br><br>
+<button onclick="deletePostAjax()">Fake api deletePost()</button> <br><br>
+<button onclick="callWithHeadersAjax()">Fake api callWithHeaders()</button> <br><br>
+
+
+<br><br>
+<h3 id="output"></h3>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+// ADD (bug)
+function addNumbers() {
+    let n1 = document.getElementById("num1").value;
+    let n2 = document.getElementById("num2").value;
+
+    let sum = n1 + n2; // BUG
+
+    console.log("ADD:", sum);
+    output(sum);
+}
+
+// MULTIPLY
+function multiplyNumbers() {
+    let n1 = document.getElementById("num1").value;
+    let n2 = document.getElementById("num2").value;
+
+    let result = n1 * n2;
+
+    console.log("MULTIPLY:", result);
+    output(result);
+}
+
+// DIVIDE (edge case)
+function divideNumbers() {
+    let n1 = parseInt(document.getElementById("num1").value);
+    let n2 = parseInt(document.getElementById("num2").value);
+
+    let result = n1 / n2; // BUG: divide by 0 not handled
+
+    output(result);
+}
+
+// MODULUS
+function modulusNumbers() {
+    let n1 = 10;
+    let n2 = 3;
+
+    let result = n1 % n2;
+
+    output(result);
+}
+
+// FAKE API (bug)
+function fakeApiCall() {
+    let response = {
+        status: 200,
+        data: { name: "Daniel" }
+    };
+
+    console.log(response.data.name); // BUG
+}
+
+// ASYNC API (timing issue)
+function asyncApi() {
+    let data;
+
+    setTimeout(() => {
+        data = "Loaded Data";
+    }, 2000);
+
+    console.log("Async Data:", data); // BUG
+}
+
+// DATE DIFF
+function calculateDateDiff() {
+    let d1 = new Date("2024-01-01");
+    let d2 = new Date("2024-01-10");
+
+    let days = (d2 - d1) / (1000 * 60 * 60 * 24);
+
+    output(days);
+}
+
+// DATE FORMAT BUG
+function formatDate() {
+    let d = new Date();
+
+    let formatted =
+        d.getDate() + "/" +
+        d.getMonth() + "/" + // BUG
+        d.getFullYear();
+
+    output(formatted);
+}
+
+// STRING REVERSE
+function stringReverse() {
+    let str = "debug";
+
+    let rev = str.split("").reverse().join("");
+
+    output(rev);
+}
+
+// PALINDROME BUG
+function palindromeCheck() {
+    let str = "madam";
+
+    let rev = str.split("").reverse().join("");
+
+    if (str = rev) { // BUG
+        output("Palindrome");
+    } else {
+        output("Not Palindrome");
+    }
+}
+
+// ARRAY SUM BUG
+function arraySum() {
+    let arr = [1, 2, 3];
+
+    let sum = 0;
+
+    for (let i = 0; i <= arr.length; i++) { // BUG
+        sum += arr[i];
+    }
+
+    output(sum);
+}
+
+// FIND MAX BUG
+function findMax() {
+    let arr = [5, 10, 2, 8];
+
+    let max = 0; // BUG if negative numbers
+
+    arr.forEach(num => {
+        if (num > max) {
+            max = num;
+        }
+    });
+
+    output(max);
+}
+
+// OBJECT BUG
+function objectBug() {
+    let user = {
+        name: "Daniel",
+        age: 25
+    };
+
+    console.log(user.email.toLowerCase()); // BUG
+}
+
+// SCOPE BUG
+function scopeBug() {
+    if (true) {
+        var x = 10;
+    }
+
+    console.log(x); // works (var scope confusion)
+}
+
+// COMMON OUTPUT
+function output(val) {
+    document.getElementById("output").innerText = val;
+}
+
+
+function getUsers() {
+     
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(res => {
+             
+            return res.json();
+        })
+        .then(data => {
+             
+            console.log(data);
+                        output(JSON.stringify(data) );
+
+        });
+
+
+}
+
+
+function getUserById() {
+     
+    fetch('https://jsonplaceholder.typicode.com/users/1')
+        .then(res => res.json())
+        .then(data => {
+             
+            console.log(data);
+        });
+     output(data);
+    }
+
+
+    function getPostsByUser() {
+     
+    fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+        .then(res => res.json())
+        .then(data => {
+             
+            console.log(data);
+            output(JSON.stringify(data));
+
+        });
+  
+
+    }
+
+
+    function createPost() {
+     
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title: 'New Post',
+            body: 'Hello Debug',
+            userId: 1
+        })
+    })
+    .then(res => {
+         
+        return res.json();
+    })
+    .then(data => {
+         
+        console.log(data);
+                console.log(JSON.stringify(data));
+           output( JSON.stringify(data));
+
+    });
+}
+
+function updatePost() {
+     
+    fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: 1,
+            title: 'Updated Title',
+            body: 'Updated Body',
+            userId: 1
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+         
+        console.log(data);
+           output(JSON.stringify(data));
+
+    });
+
+}
+
+function patchPost() {
+     
+    fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title: 'Patched Title'
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+         
+        console.log(data);
+                   output(JSON.stringify(data));
+
+    });
+
+}
+
+
+
+function deletePost() {
+     
+    fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        method: 'DELETE'
+    })
+    .then(res => {
+         
+        console.log("Status:", res.status);
+                   output(JSON.stringify(data));
+
+    });
+
+}
+
+function getPaginatedPosts() {
+     
+    fetch('https://jsonplaceholder.typicode.com/posts?_page=1&_limit=5')
+        .then(res => {
+             
+            console.log("Total Count:", res.headers.get('x-total-count'));
+            return res.json();
+        })
+        .then(data => {
+             
+            console.log(data);
+            output(JSON.stringify(data));
+
+        });
+}
+
+function getInvalidEndpoint() {
+     
+    fetch('https://jsonplaceholder.typicode.com/invalid-url')
+        .then(res => {
+             
+            if (!res.ok) {
+                throw new Error("API Failed: " + res.status);
+            }
+            return res.json();
+        })
+        .then(data => console.log(data))
+        .catch(err => {
+             
+            console.error(err);
+             output(JSON.stringify(data));
+
+        });
+
+}
+
+function chainedCalls() {
+     
+    fetch('https://jsonplaceholder.typicode.com/users/1')
+        .then(res => res.json())
+        .then(user => {
+             
+            return fetch(`https://jsonplaceholder.typicode.com/posts?userId=${user.id}`);
+        })
+        .then(res => res.json())
+        .then(posts => {
+             
+            console.log(posts);
+            output(JSON.stringify(data));
+
+        });
+
+}
+
+function getAllPostsUsingFetch() {
+
+    fetch('https://jsonplaceholder.typicode.com/posts')
+   .then(response => {
+             
+            console.log(response);
+            output(JSON.stringify(response));
+
+        });
+
+  }
+
+
+function getPostsAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'GET',
+        success: function(res) {
+             
+            console.log(res);
+             output(JSON.stringify(res));
+
+        }
+    });
+
+}
+
+function getPostByIdAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts/1',
+        method: 'GET',
+        success: function(res) {
+             
+            console.log(res);
+             output(JSON.stringify(res));
+
+        }
+    });
+}
+
+function getPostsByUserAjax() {
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'GET',
+        data: { userId: 1 },
+        success: function(res) {
+            console.log(res);
+            output(JSON.stringify(res));
+
+        }
+    });
+
+}
+
+
+
+function getPaginatedPostsAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'GET',
+        data: {
+            _page: 1,
+            _limit: 5
+        },
+        success: function(res, status, xhr) {
+             
+            console.log("Data:", res);
+            console.log("Total Count:", xhr.getResponseHeader('x-total-count'));
+                        output(JSON.stringify(res));
+
+        }
+    });
+
+}
+
+function createPostAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            title: "New Post",
+            body: "Learning Debugging",
+            userId: 1
+        }),
+        success: function(res) {
+             
+            console.log(res);
+            output(JSON.stringify(res));
+
+        }
+    });
+
+}
+
+
+function updatePostAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts/1',
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            id: 1,
+            title: "Updated Title",
+            body: "Updated Body",
+            userId: 1
+        }),
+        success: function(res) {
+             
+            console.log(res);
+                        output(JSON.stringify(res));
+
+        }
+    });
+
+}
+
+function patchPostAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts/1',
+        method: 'PATCH',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            title: "Patched Only Title"
+        }),
+        success: function(res) {
+             
+            console.log(res);
+                        output(JSON.stringify(res));
+
+        }
+    });
+}
+
+
+function deletePostAjax() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts/1',
+        method: 'DELETE',
+        success: function(res, status, xhr) {
+             
+            console.log("Status:", xhr.status);
+            
+        }
+    });
+}
+
+function callWithHeaders() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer fake-token'
+        },
+        success: function(res) {
+             
+            console.log(res);
+                        output(JSON.stringify(res));
+
+        }
+    });
+
+}
+
+function errorExample() {
+     
+
+    $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/invalid-url',
+        method: 'GET',
+        success: function(res) {
+            console.log(res);
+        },
+        error: function(xhr) {
+             
+            console.log("Error Status:", xhr.status);
+            console.log("Error Response:", xhr.responseText);
+        }
+    });
+      output("Error Status:", xhr.status);
+      output("Error Response:", xhr.responseText);
+
+
+}
+
+
+errorExample()
+
+</script>
+
+</body>
+</html>
